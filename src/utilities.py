@@ -11,13 +11,13 @@ def askName() -> str:
             return nimi_listaan
 
 def serialize(name) -> None:
-    with open("players.txt", 'a', encoding="UTF-8") as f:
+    with open("../data/players.txt", 'a', encoding="UTF-8") as f:
         f.write(f"{name}\n")
     return None
 
 
 def deserialize() -> list[str]:
-    with open("players.txt", 'r', encoding="UTF-8") as f:
+    with open("../data/players.txt", 'r', encoding="UTF-8") as f:
         lista = [line.strip() for line in f.readlines()]
     return lista
 

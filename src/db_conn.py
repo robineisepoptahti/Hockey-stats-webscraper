@@ -12,7 +12,7 @@ class DB:
     DB_FILEPATH: Path
     conn: Connection
     def __init__(self) -> None:
-        self.DB_FILEPATH = Path().joinpath("./players.db") 
+        self.DB_FILEPATH = Path().joinpath("../data/players.db") 
         self.conn = sqlite3.connect(self.DB_FILEPATH) 
         return None
     def __new__(cls: type[Self]) -> Self:

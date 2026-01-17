@@ -2,7 +2,7 @@ import requests
 import sys
 from player import PlayerDAO
 from utilities import normalize_string
-from datetime import datetime
+
 
 
 

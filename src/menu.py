@@ -19,24 +19,24 @@ CREATE TABLE IF NOT EXISTS players(
     pm INTEGER NOT NULL
 );
 """
-class Main:
+class Operations:
     db: DB
     def __init__(self) -> None:
         self.db = DB()
         self.__initDatabase()
         name_list = deserialize() 
-        player_dao = PlayerDAO()
-        data_list = player_dao.getAll()
-        #Tarkistaa onko serialisoitu nimi jo tietokannassa
+        self.player_dao = PlayerDAO()
+        data_list = self.player_dao.getAll()
+        #Check if names are already in database
         temp_name = "placeholder"
         for name in name_list:
             for data in data_list:
-                #Lisätään muuttujaan, että voidaan käsitellä loopin ulkopuolellA
+                #Adds name if not found
                 temp_name = data.name
                 if name == temp_name:
                     break
             if name != temp_name:
-                player_dao.add_to_db(name)
+                self.player_dao.add_to_db(name)
         print("Initialized")
         return None
     
@@ -49,15 +49,13 @@ class Main:
     
     #Takes player name and adds it to table
     def create(self) -> None:
-        player_dao = PlayerDAO()
-        player_dao.add_name()
+        self.player_dao.add_name()
         return None
     
     #Gets info using a DAO, as a list of player objects.
     def show(self) -> None:
         league = "first"
-        player_dao = PlayerDAO()
-        lista = player_dao.getAll()
+        lista = self.player_dao.getAll()
         for player in lista:
             if player.games != 0:
                 if player.league != league:
@@ -68,5 +66,11 @@ class Main:
                 print(f"{player.name}:   Ottelut: {player.games} Pisteet: {player.goals} + {player.assists} = {player.season_points}")
                 print(f"Joukkue: {player.team}  Laukaisuprosentti: {player.sp:.2f}  Plus-miinus: {player.pm}  Peliaika (avg): {player.toi}")
                 league = player.league
+        return None
+    
+    
+    #Cleaning up
+    def end_operationn(self) -> None:
+        self.db.close()
         return None
 

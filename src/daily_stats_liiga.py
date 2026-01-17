@@ -56,4 +56,8 @@ def liiga_daily_stats():
     return None
 
 
-liiga_daily_stats()
+if __name__ == '__main__':
+    liiga_daily_stats()
+
+
+

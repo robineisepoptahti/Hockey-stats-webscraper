@@ -48,6 +48,7 @@ def nhl_season_stats():
     player_dao.update(stat_list)
     return None
 
-nhl_season_stats()
+if __name__ == '__main__':
+    nhl_season_stats()
 
 

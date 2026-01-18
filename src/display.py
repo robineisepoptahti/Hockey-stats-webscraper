@@ -1,32 +1,28 @@
-# Not important for now
-import sys
-import requests
-from player import PlayerDAO
+# Displays the stats in CLI
 from datetime import datetime, timedelta
 
-aika = datetime.now()
-yesterday_unmodified = aika - timedelta(days=1)
-muokattu_aika = aika.strftime("%Y-%m-%d")
-yesterday = yesterday_unmodified.strftime("%Y-%m-%d")
-year = aika.year
-month = aika.month
-day = aika.day
-day = day-1
 
-def nhl_daily_stats():
-    print(yesterday)
-    print(f"Game stats from {day}.{month}.{year}:")
-    print()
-    url = 'https://api-web.nhle.com/v1/score/{eilen}'
-    player_dao = PlayerDAO()
-    lista = player_dao.getAll("NHL")
-    
-    #Gets the page and saves the content
-    page = requests.get(url)
-    if page.status_code == 403:
-        print("Pyyntö epäonnistui.")
-        sys.exit(0)
-    games = page.json()
+aika = datetime.now()
+yesteday_unmodified = aika - timedelta(days=1)
+yesterday = yesteday_unmodified.strftime("%Y-%m-%d")
+
+
+def display_season_stats(lista) -> None:
+    league = "first"
+    for player in lista:
+        if player.games != 0:
+            if player.league != league:
+                print(3 * "\n")
+                print(f"{player.league}\n")
+                print("_" * 20)
+            print()
+            print(f"{player.name}:   Ottelut: {player.games} Pisteet: {player.goals} + {player.assists} = {player.season_points}")
+            print(f"Joukkue: {player.team}  Laukaisuprosentti: {player.sp:.2f}  Plus-miinus: {player.pm}  Peliaika (avg): {player.toi}")
+            league = player.league
+    return None
+
+
+def display_liiga_daily_stats(games, lista) -> None:
     for entry in games:
         game = entry["start"]
         if game[0:10] == yesterday:
@@ -56,4 +52,4 @@ def nhl_daily_stats():
     return None
 
 
-nhl_daily_stats()
+

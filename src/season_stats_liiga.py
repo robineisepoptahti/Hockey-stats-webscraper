@@ -8,11 +8,7 @@ def liiga_season_stats():
     stat_list = []
     url = f'https://www.liiga.fi/api/v2/players/stats/summed/{date.year}/{date.year}/runkosarja/true?dataType=basicStats'
     player_dao = PlayerDAO()
-
-
-    #Ei kannata ottaa pelkkiä liigapelaajia, koska liigan nimeä ei välttämättä ole tallennettu tietokantaan.
     lista = player_dao.getAll()
-
     #Gets the page and saves the content
     page = requests.get(url)
     if page.status_code == 403:
@@ -20,6 +16,7 @@ def liiga_season_stats():
         sys.exit(0)
     stats = page.json()
     league = "Liiga"
+    #Parsing the stats
     for player in lista:
         for entry in stats:
             fullname = f"{entry['firstName']} {entry['lastName']}"

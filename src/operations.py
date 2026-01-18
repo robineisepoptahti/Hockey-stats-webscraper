@@ -1,6 +1,9 @@
-from db_conn import DB
+from db.db_conn import DB
 from player import PlayerDAO
 from utilities import deserialize
+from display import display_season_stats
+from season_stats_nhl import nhl_season_stats
+from season_stats_liiga import liiga_season_stats
 
 TABLE_STATEMENT = """
 CREATE TABLE IF NOT EXISTS players(
@@ -54,21 +57,16 @@ class Operations:
     
     #Gets info using a DAO, as a list of player objects.
     def show(self) -> None:
-        league = "first"
         lista = self.player_dao.getAll()
-        for player in lista:
-            if player.games != 0:
-                if player.league != league:
-                    print(3 * "\n")
-                    print(f"{player.league}\n")
-                    print("_" * 20)
-                print()
-                print(f"{player.name}:   Ottelut: {player.games} Pisteet: {player.goals} + {player.assists} = {player.season_points}")
-                print(f"Joukkue: {player.team}  Laukaisuprosentti: {player.sp:.2f}  Plus-miinus: {player.pm}  Peliaika (avg): {player.toi}")
-                league = player.league
+        display_season_stats(lista)
         return None
     
+    def update_stats(self) -> None:
+        nhl_season_stats()
+        liiga_season_stats()
+        return None
     
+
     #Cleaning up
     def end_operationn(self) -> None:
         self.db.close()

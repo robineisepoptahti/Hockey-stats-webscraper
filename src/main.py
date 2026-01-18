@@ -1,5 +1,5 @@
 from datetime import datetime
-from menu import Operations
+from operations import Operations
 from season_stats_nhl import nhl_season_stats
 from season_stats_liiga import liiga_season_stats
 from daily_stats_liiga import liiga_daily_stats
@@ -10,12 +10,10 @@ from utilities import menu_loop
 def main():
     print(datetime.now())
     print("Ohjelma alkaa.")
+    #initializes operations, database and DAO ar initialized in the creation if needed.
     app = Operations()
-
     #Päivittää kauden pistetilastot 
-    #nhl_season_stats()
-    #liiga_season_stats()
-    
+    app.update_stats()
     choice = -1
     while choice != 0:
         try:
@@ -39,7 +37,7 @@ def main():
     print()
     app.end_operationn()
     print("Ohjelma suljetaan")
-    return None
+    return 0
 
 
 #Switch

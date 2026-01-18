@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from db_conn import DB
+from db.db_conn import DB
 from utilities import askName, serialize
 
 @dataclass

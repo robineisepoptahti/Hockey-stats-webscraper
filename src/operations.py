@@ -4,24 +4,8 @@ from utilities import deserialize
 from display import display_season_stats
 from season_stats_nhl import nhl_season_stats
 from season_stats_liiga import liiga_season_stats
+from db.queries import PlayerQueries
 
-TABLE_STATEMENT = """
-CREATE TABLE IF NOT EXISTS players(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name VARCHAR(128) NOT NULL,
-    season_points INTEGER NOT NULL,
-    goals INTEGER NOT NULL,
-    assists INTEGER NOT NULL,
-    games INTEGER NOT NULL,
-    team VARCHAR(128) NOT NULL,
-    team_id VARCHAR(128) NOT NULL,
-    player_id VARCHAR(128) NOT NULL,
-    sp FLOAT NOT NULL,
-    toi VARCHAR(128) NOT NULL,
-    league VARCHAR(128) NOT NULL,
-    pm INTEGER NOT NULL
-);
-"""
 class Operations:
     db: DB
     def __init__(self) -> None:
@@ -40,12 +24,12 @@ class Operations:
                     break
             if name != temp_name:
                 self.player_dao.add_to_db(name)
-        print("Initialized")
+        print("Tietokanta alustettu.")
         return None
     
     def __initDatabase(self) -> None:
         cursor = self.db.conn.cursor()
-        cursor.execute(TABLE_STATEMENT)
+        cursor.execute(PlayerQueries.TABLE_STATEMENT)
         self.db.conn.commit()
         cursor.close()
         return None

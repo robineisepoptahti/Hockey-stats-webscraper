@@ -1,7 +1,9 @@
 from dataclasses import dataclass
 from db.db_conn import DB
 from utilities import askName, serialize
+from db.queries import PlayerQueries
 
+#Model
 @dataclass
 class Player:
     id: int | None
@@ -33,24 +35,7 @@ class PlayerDAO:
         return None
     def createTable(self) -> None:
         cursor = self.db.conn.cursor()
-        sql_statement = """
-        CREATE TABLE IF NOT EXISTS players (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL,
-            season_points INTEGER,
-            goals INTEGER,
-            assists INTEGER,
-            games INTEGER,
-            team TEXT,
-            team_id TEXT,
-            player_id TEXT,
-            sp REAL,
-            toi TEXT,
-            league TEXT,
-            pm INTEGER
-        );
-        """
-        cursor.execute(sql_statement)
+        cursor.execute(PlayerQueries.TABLE_STATEMENT)
         self.db.conn.commit()
         cursor.close()
         return None
@@ -60,19 +45,14 @@ class PlayerDAO:
     
     def getAll(self, league=None) -> list[Player]:
         cursor = self.db.conn.cursor()
-        #Päättää palautetaanko jokin tietty liiga vai kaikki pelaajat
+        #Which league to fetch from, everything if no league param is sent
         if league is not None:
-            sql_statement = """SELECT * FROM players
-                WHERE league = ?
-                ORDER BY season_points DESC;"""
-            cursor.execute(sql_statement, (league,))
+            cursor.execute(PlayerQueries.SELECT_LEAGUE_STATEMENTS, (league,))
         else:
             print("____")
-            sql_statement = """SELECT * FROM players
-                ORDER BY league ASC, season_points DESC;"""
-            cursor.execute(sql_statement)
+            cursor.execute(PlayerQueries.SELECT_STATEMENTS)
         records = cursor.fetchall()
-        #Test print of fetched list
+        #Test print of fetched list (for debug)
         #print(records)
         players: list[Player] = []
         for record in records:
@@ -84,14 +64,9 @@ class PlayerDAO:
     
     def update(self, l) -> None:
         cursor = self.db.conn.cursor()
-        sql_statement = """
-        UPDATE players
-        SET season_points = ?, goals = ?, assists = ?, games = ?, league = ?, team = ?, sp = ?, pm = ?, toi = ?, team_id = ?, player_id = ?
-        WHERE name = ?;
-        """
         for player in l:
             record_data = (player["points"], player["goals"], player["assists"], player["games"], player["league"], player["team"], player["sp"], player["pm"], player["toi"], player["tId"], player["pId"], player["name"])
-            cursor.execute(sql_statement, record_data)
+            cursor.execute(PlayerQueries.UPDATE_STATEMENT, record_data)
             self.db.conn.commit()
         cursor.close()
         return None 
@@ -100,16 +75,15 @@ class PlayerDAO:
 
     def add_name(self) -> None:
         nimi_listaan = askName()    
-        #Lataa nimet tietokannasta je tarkistaa onko syötetty nimi jo siellä
+        #Fetaches names from DB and checks for duplicates
         player_dao = PlayerDAO()
         lista = player_dao.getAll()
-        #Tarkastaa että listassa on jotain, jotta voidaaan verrata tuplauksien varalta
         if lista:
             for player in lista:
                 if player.name == nimi_listaan:
                     print("Nimi on jo listassa.")
                     return None
-        #Muuten serialisoi nimen avaimeksi ja lisää nimen tietokantaan
+        #Serializes the name as a key, and adds to DB
         serialize(nimi_listaan)
         player_dao.add_to_db(nimi_listaan)
         print()
@@ -120,9 +94,8 @@ class PlayerDAO:
 
     def add_to_db(self, nimi_listaan: None) -> None:
         cursor = self.db.conn.cursor()
-        sql_statement = "INSERT INTO players(name, season_points, goals, assists, games, team, team_id, player_id, sp, toi, league, pm) VALUES(?, ?, ?, ?, ?, ?, ? ,? ,? ,? ,? ,?)"
         record_data = (nimi_listaan, 0, 0, 0, 0 ,"-" ,"-" ,"-" ,0 ,"-" ,"-" ,0)
-        cursor.execute(sql_statement, record_data)
+        cursor.execute(PlayerQueries.ADD_STATEMENT, record_data)
         self.db.conn.commit()
         cursor.close()
         return None

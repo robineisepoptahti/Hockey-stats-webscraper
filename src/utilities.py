@@ -2,9 +2,9 @@ import unicodedata
 
 #Apufunktioita / Utilities
 
-def askName() -> str:
+def ask_name() -> str:
     while(True): 
-        name_to_list = input("Lisää pelaajan nimi (Etunimi Sukunimi): ")
+        name_to_list = input("Anna pelaajan nimi (Etunimi Sukunimi): ")
         if name_to_list.isalnum() == True:
             print("Muista kirjoittaa sekä etu ja sukunimi, välilyöntiä käyttäen.")
         else:
@@ -19,14 +19,28 @@ def serialize(name) -> None:
 def deserialize() -> list[str]:
     try:
         with open("../data/players.txt", 'r', encoding="UTF-8") as f:
-            list = [line.strip() for line in f.readlines()]
-        return list
+            names = [line.strip() for line in f.readlines()]
+        return names
     except FileNotFoundError:
         # Create the file if it doesn't exist
         with open("../data/players.txt", 'w', encoding="UTF-8") as f:
             pass
         return []
+    
 
+def remove_name(name) -> None:
+    #Gets Names from file
+    names = deserialize()
+    print(names)
+    #Rewrites text file without the given name
+    removed = False
+    with open("../data/players.txt", 'w', encoding="UTF-8") as f:
+        for l_name in names:
+            if l_name == name and not removed:
+                removed = True  # skip only the first matching name
+                continue
+            f.write(f"{l_name}\n")
+    return None
 
 def normalize_string(s) -> str:
     #.encode - > .decode poistaa turhia merkkejä, tosin tässä takoituksessa niitä tuskin esiintyy.
@@ -43,6 +57,7 @@ def menu_loop(choice):
             print("1) Näytä pelaajien viime kierroksen pisteet")
             print("2) Lisää pelaaja seurantalistaan")
             print("3) Seurattavien kauden kokonaispisteet sarjoittain")
+            print("4) Poista pelaaja seurantalistalta")
             print("0) Lopeta ohjelma")
             choice = int(input("Syötä luku: "))
             return choice

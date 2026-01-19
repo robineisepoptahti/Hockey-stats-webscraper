@@ -29,3 +29,5 @@ class PlayerQueries:
     SELECT_LEAGUE_STATEMENTS ="""SELECT * FROM players
                 WHERE league = ?
                 ORDER BY season_points DESC;"""
+    
+    DELETE_STATEMENT = "DELETE FROM players WHERE name = ?;"

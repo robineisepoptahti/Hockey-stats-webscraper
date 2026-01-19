@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from db.db_conn import DB
-from utilities import askName, serialize
+from utilities import ask_name, serialize
 from db.queries import PlayerQueries
 
 #Model
@@ -74,20 +74,19 @@ class PlayerDAO:
 
 
     def add_name(self) -> None:
-        nimi_listaan = askName()    
+        name = ask_name()    
         #Fetaches names from DB and checks for duplicates
-        player_dao = PlayerDAO()
         lista = player_dao.getAll()
         if lista:
             for player in lista:
-                if player.name == nimi_listaan:
+                if player.name == name:
                     print("Nimi on jo listassa.")
                     return None
-        #Serializes the name as a key, and adds to DB
-        serialize(nimi_listaan)
-        player_dao.add_to_db(nimi_listaan)
+        #Serializes the name as a key
+        serialize(name)
+        self.add_to_db(name)
         print()
-        print(f"Seurataan pelaajaa {nimi_listaan}")
+        print(f"Seurataan pelaajaa {name}")
         print("Pelaaja lisätty listaan.")
         return None
 
@@ -96,6 +95,14 @@ class PlayerDAO:
         cursor = self.db.conn.cursor()
         record_data = (nimi_listaan, 0, 0, 0, 0 ,"-" ,"-" ,"-" ,0 ,"-" ,"-" ,0)
         cursor.execute(PlayerQueries.ADD_STATEMENT, record_data)
+        self.db.conn.commit()
+        cursor.close()
+        return None
+    
+    def remove_from_db(self, name) -> None:
+        cursor = self.db.conn.cursor()
+        #The comma after name makes it a Tuple, otherwise it is handled as a char array
+        cursor.execute(PlayerQueries.DELETE_STATEMENT, (name,))
         self.db.conn.commit()
         cursor.close()
         return None

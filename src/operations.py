@@ -1,6 +1,6 @@
 from db.db_conn import DB
 from player import PlayerDAO
-from utilities import deserialize
+from utilities import deserialize, ask_name, remove_name
 from display import display_season_stats
 from season_stats_nhl import nhl_season_stats
 from season_stats_liiga import liiga_season_stats
@@ -50,6 +50,11 @@ class Operations:
         liiga_season_stats()
         return None
     
+    def remove(self) -> None:
+        name = ask_name()
+        self.player_dao.remove_from_db(name)
+        remove_name(name)
+        return None
 
     #Cleaning up
     def end_operationn(self) -> None:

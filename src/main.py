@@ -28,6 +28,9 @@ def main():
                 nhl_season_stats()
                 liiga_season_stats()
                 app.show()
+            #Choice 4). Removes player from DB
+            elif choice == 4:
+                app.remove()
             elif choice == 0:
                 break
             else:

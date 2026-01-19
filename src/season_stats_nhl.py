@@ -13,7 +13,6 @@ def nhl_season_stats():
     player_dao = PlayerDAO()
     player_dao.createTable()
 
-    #Ei kannata ottaa pelkkiä liigapelaajia, koska liigan nimeä ei välttämättä ole tallennettu tietokantaan.
     lista = player_dao.getAll()
 
     #Gets the page and saves the content

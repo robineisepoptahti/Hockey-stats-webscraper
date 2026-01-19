@@ -4,11 +4,11 @@ import unicodedata
 
 def askName() -> str:
     while(True): 
-        nimi_listaan = input("Lisää pelaajan nimi (Etunimi Sukunimi): ")
-        if nimi_listaan.isalnum() == True:
+        name_to_list = input("Lisää pelaajan nimi (Etunimi Sukunimi): ")
+        if name_to_list.isalnum() == True:
             print("Muista kirjoittaa sekä etu ja sukunimi, välilyöntiä käyttäen.")
         else:
-            return nimi_listaan
+            return name_to_list
 
 def serialize(name) -> None:
     with open("../data/players.txt", 'a', encoding="UTF-8") as f:
@@ -17,9 +17,15 @@ def serialize(name) -> None:
 
 
 def deserialize() -> list[str]:
-    with open("../data/players.txt", 'r', encoding="UTF-8") as f:
-        lista = [line.strip() for line in f.readlines()]
-    return lista
+    try:
+        with open("../data/players.txt", 'r', encoding="UTF-8") as f:
+            list = [line.strip() for line in f.readlines()]
+        return list
+    except FileNotFoundError:
+        # Create the file if it doesn't exist
+        with open("../data/players.txt", 'w', encoding="UTF-8") as f:
+            pass
+        return []
 
 
 def normalize_string(s) -> str:

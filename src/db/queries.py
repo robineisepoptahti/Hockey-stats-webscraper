@@ -15,16 +15,16 @@ class PlayerQueries:
         league VARCHAR(128) NOT NULL,
         pm INTEGER NOT NULL
     );
-    """,
+    """
     UPDATE_STATEMENT = """
         UPDATE players
         SET season_points = ?, goals = ?, assists = ?, games = ?, league = ?, team = ?, sp = ?, pm = ?, toi = ?, team_id = ?, player_id = ?
         WHERE name = ?;
-        """,
-    ADD_STATEMENT = "INSERT INTO players(name, season_points, goals, assists, games, team, team_id, player_id, sp, toi, league, pm) VALUES(?, ?, ?, ?, ?, ?, ? ,? ,? ,? ,? ,?)",
+        """
+    ADD_STATEMENT = "INSERT INTO players(name, season_points, goals, assists, games, team, team_id, player_id, sp, toi, league, pm) VALUES(?, ?, ?, ?, ?, ?, ? ,? ,? ,? ,? ,?)"
     
     SELECT_STATEMENTS = """SELECT * FROM players
-                ORDER BY league ASC, season_points DESC;""",
+                ORDER BY league ASC, season_points DESC;"""
     
     SELECT_LEAGUE_STATEMENTS ="""SELECT * FROM players
                 WHERE league = ?

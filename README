@@ -7,7 +7,7 @@ Uses singleton architecture.
 todo:
 Error handling
 Testing
-Multithreading?
+Multithreading
 Nulling between seasons
 Daily stats NHL
-SQLAlchemy?
+SQLAlchemy

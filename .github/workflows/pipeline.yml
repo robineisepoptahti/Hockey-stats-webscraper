@@ -23,7 +23,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run tests
-        run: PYTHONPATH=./src pytest tests pytest tests/
+        run: PYTHONPATH=./src pytest tests/
 
   tag_release:
     needs: [simple_deployment_pipeline]

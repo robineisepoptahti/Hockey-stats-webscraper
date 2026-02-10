@@ -1,4 +1,4 @@
-#####DEMO Hockey stat webscraper#######
+# Hockey stat webscraper
 
 Webscraper which serializes and saves given players to SQLite database.
 Then it reads season stats by those given players, and data for the players from last liiga round.

@@ -27,26 +27,27 @@ def deserialize() -> list[str]:
             pass
         return []
     
+    
 
 def remove_name(name) -> None:
     #Gets Names from file
     names = deserialize()
     print(names)
     #Rewrites text file without the given name
-    removed = False
     with open("../data/players.txt", 'w', encoding="UTF-8") as f:
         for l_name in names:
-            if l_name == name and not removed:
-                removed = True  # skip only the first matching name
-                continue
-            f.write(f"{l_name}\n")
-    return None
+            if l_name != name:
+                f.write(f"{l_name}\n")
+        return None
 
 def normalize_string(s) -> str:
     #.encode - > .decode poistaa turhia merkkejä, tosin tässä takoituksessa niitä tuskin esiintyy.
     return unicodedata.normalize("NFKD", s).encode("ascii", "ignore").decode("ascii")
 
-
+def clear_file() -> None:
+    with open("../data/players.txt", 'w', encoding="UTF-8") as f:
+        pass
+    return None
 
 ##MENU LOOP PROGRAM###
 def menu_loop(choice):

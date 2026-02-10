@@ -1,6 +1,6 @@
 from datetime import datetime
-from operations import Operations
-from player import PlayerDAO
+from src.operations import Operations
+from src.player import PlayerDAO
 
 ##MAIN PROGRAM###
 

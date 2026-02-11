@@ -41,4 +41,5 @@ def liiga_season_stats():
     player_dao.update(stat_list)
     return None
 
-liiga_season_stats()
+if __name__ == '__main__':
+    liiga_season_stats()

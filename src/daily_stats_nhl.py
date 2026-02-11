@@ -55,5 +55,5 @@ def nhl_daily_stats():
                     print(f"{player.name}: {goals} + {assist}, primary assists: {Passists}")
     return None
 
-
-nhl_daily_stats()
+if __name__ == '__main__':
+    nhl_daily_stats()

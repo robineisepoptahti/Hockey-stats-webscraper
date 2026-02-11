@@ -7,13 +7,8 @@ from utilities import menu_loop
 
 ##MAIN PROGRAM###
 
-def main():
-    print(datetime.now())
-    print("Ohjelma alkaa.")
-    #initializes operations, database and DAO ar initialized in the creation if needed.
-    app = Operations()
-    #Päivittää kauden pistetilastot 
-    app.update_stats()
+
+def main_loop(app):
     choice = -1
     while choice != 0:
         try:
@@ -32,11 +27,21 @@ def main():
             elif choice == 4:
                 app.remove()
             elif choice == 0:
-                break
+                return
             else:
                 print("Kelvoton valinta, syötä numero.")
         except ValueError:
             print("Valinnan on oltava numero.")
+
+
+def main():
+    print(datetime.now())
+    print("Ohjelma alkaa.")
+    #initializes operations, database and DAO ar initialized in the creation if needed.
+    app = Operations()
+    #Päivittää kauden pistetilastot 
+    app.update_stats()
+    main_loop(app)
     print()
     app.end_operationn()
     print("Ohjelma suljetaan")

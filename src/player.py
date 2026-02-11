@@ -76,7 +76,7 @@ class PlayerDAO:
     def add_name(self) -> None:
         name = ask_name()    
         #Fetaches names from DB and checks for duplicates
-        lista = player_dao.getAll()
+        lista = self.getAll()
         if lista:
             for player in lista:
                 if player.name == name:

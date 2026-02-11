@@ -15,7 +15,7 @@ class DB:
     def __init__(self) -> None:
         if self._initialized:
             return
-        self.DB_FILEPATH = Path().joinpath("../data/players.db") 
+        self.DB_FILEPATH = Path(__file__).parent.parent.parent / "data" / "players.db"
         self.conn = sqlite3.connect(self.DB_FILEPATH)
         self._initialized = True
         return None

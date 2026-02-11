@@ -17,6 +17,7 @@ Python version of at least 3.11
 -Run app (from root src/main.py)
 
 todo:
+Ä ja Ö
 Error handling
 Testing
 Multithreading?

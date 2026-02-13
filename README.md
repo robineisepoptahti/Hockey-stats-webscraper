@@ -1,8 +1,7 @@
 # Hockey stat webscraper
 
-Webscraper which serializes and saves given players to SQLite database.
-Then it reads season stats by those given players, and data for the players from last liiga round.
-Uses singleton architecture and Github actions pipeline.
+Webscraper with python3.11 backend and Typescript frontend.
+Add player to the list who you want to follow, and it add the stats to SQLite database.
 
 ## Requirements
 
@@ -12,16 +11,17 @@ Uses singleton architecture and Github actions pipeline.
 ## Usage
 
 -Clone repo
--Install dependencies from requirements.txt, and make sure you have
+-Install dependencies for backend from backend/requirements.txt, and make sure you have
 Python version of at least 3.11
--Run app (from root src/main.py)
 
-todo:
-Ä ja Ö
-Error handling
-Testing
-Multithreading?
-Nulling between seasons
-Daily stats NHL
-SQLAlchemy
-?
+cd backend
+pip3 install -r requirements.txt
+python3 main.py
+
+-Install frontend dependencies and run
+
+cd frontend
+npm install
+npm run start
+
+-Run app (from root src/main.py)

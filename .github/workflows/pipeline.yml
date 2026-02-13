@@ -9,7 +9,7 @@ on:
   pull_request:
     branches: [main]
 jobs:
-  simple_deployment_pipeline:
+  simple_deployment_pipeline_backend:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -27,11 +27,11 @@ jobs:
       - name: Run tests
         working-directory: ${{ github.workspace }}
         run: |
-          export PYTHONPATH=src
-          pytest tests/
+          export PYTHONPATH=backend/src
+          pytest backend/tests/
 
   tag_release:
-    needs: [simple_deployment_pipeline]
+    needs: [simple_deployment_pipeline_backend]
     runs-on: ubuntu-latest
     permissions:
       contents: write

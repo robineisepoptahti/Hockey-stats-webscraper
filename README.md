@@ -1,14 +1,12 @@
 # Hockey stat webscraper
 
+Application can be found in Render: [link text](https://example.com)
+
 Webscraper with python3.11 backend and Typescript frontend.
 Add player to the list who you want to follow, and it add the stats to SQLite database.
+You can follow non-existent players, but they won't show up before they have statistics in either league with their name.
 
-## Requirements
-
-- Python3.11 or newer
-- requirements.txt
-
-## Usage
+## Local usage
 
 -Clone repo
 -Install dependencies for backend from backend/requirements.txt, and make sure you have
@@ -25,3 +23,8 @@ npm install
 npm run start
 
 -Run app (from root src/main.py)
+
+## Requirements
+
+- Python3.11 or newer
+- requirements.txt

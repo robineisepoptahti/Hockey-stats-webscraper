@@ -16,12 +16,21 @@ const InputForm = ({
     });
   };
   const removeOnClickListener = () => {
-    playerService.removePlayer(text).then((res) => {
-      if (res === 204) {
-        //Filtering manualy, since 204 response doesnt bring a body
-        setPlayers((prev) => prev.filter((p) => p.name !== text));
-      }
-    });
+    playerService.removePlayer(text).then(
+      (
+        res:
+          | {
+              players: Player[];
+              status: number;
+            }
+          | undefined,
+      ) => {
+        if (res && res.status === 204) {
+          //Filtering manualy, since 204 response doesnt bring a body
+          setPlayers(res.players);
+        }
+      },
+    );
   };
 
   return (

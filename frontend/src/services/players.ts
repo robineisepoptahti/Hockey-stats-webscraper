@@ -10,11 +10,12 @@ const getAll = async () => {
 };
 
 const removePlayer = async (name: string) => {
-  const playerList = await getAll();
+  let playerList = await getAll();
   const player = playerList.find((p) => p.name === name);
   if (player) {
     const newList = await axios.delete(`${baseUrl}/players/${player.pId}`);
-    return newList.status;
+    playerList = playerList.filter((p) => p.name !== name);
+    return { players: playerList, status: newList.status };
   }
 };
 

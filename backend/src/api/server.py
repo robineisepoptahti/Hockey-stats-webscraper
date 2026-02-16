@@ -3,6 +3,7 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 from operations import Operations
 import os
+import atexit
 
 load_dotenv()
 
@@ -12,7 +13,8 @@ CORS(app)
 #Object for operations 
 ops = Operations()
 
-
+#Trigger cleaning when pprocess ends
+atexit.register(ops.end_operation)
 
 FLASK_PORT = int(os.getenv("FLASK_PORT", "5000"))
 FLASK_DEBUG = os.getenv("FLASK_DEBUG", "False").lower() == "true"
@@ -38,6 +40,12 @@ def delete_player(id):
     ops.remove(id)
     players = ops.update_stats()
     return jsonify(players), 204
+
+@app.route('/version', methods=["GET"]) 
+def get_version():
+    version = '1'
+    print(version)
+    return version, 200
 
 
 

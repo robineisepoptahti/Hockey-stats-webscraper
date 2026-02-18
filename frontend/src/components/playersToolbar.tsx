@@ -1,5 +1,6 @@
 import { AppBar, IconButton, Toolbar, Typography } from "@mui/material";
 import { Menu as MenuIcon } from "@mui/icons-material";
+import "./playersTable.css";
 
 const PlayersToolbar = () => {
   return (

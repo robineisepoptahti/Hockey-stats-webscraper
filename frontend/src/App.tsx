@@ -1,7 +1,7 @@
 import "./App.css";
 import PlayersTable from "./components/playersTable";
 import InputForm from "./components/inputForm";
-import Toolbar from "./components/toolbar";
+import PlayersToolbar from "./components/playersToolbar";
 import { useState, useEffect } from "react";
 import playerService from "./services/players";
 import type { Player } from "./types";
@@ -21,7 +21,7 @@ function App() {
   return (
     <>
       <div>
-        <Toolbar />
+        <PlayersToolbar />
       </div>
       <h1>Hokcey statistics</h1>
       <div>

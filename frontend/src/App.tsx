@@ -20,11 +20,11 @@ function App() {
   }, []);
   return (
     <>
-      <div>
+      <div id="bar">
         <PlayersToolbar />
       </div>
-      <h1>Hokcey statistics</h1>
-      <div>
+      <h1>Hockey statistics</h1>
+      <div id="input">
         <InputForm setPlayers={setPlayers} />
       </div>
       <div>

@@ -2,6 +2,8 @@
 
 Application can be found in Render: [https://hockey-stats-webscraper-frontend.onrender.com](https://hockey-stats-webscraper-frontend.onrender.com)
 
+IMPORTANT: the service is deployed with Render free plan, so it might in some cases take 10-30s to start up.
+
 Webscraper with python3.11 backend and Typescript frontend.
 Add player to the list who you want to follow, and it add the stats to SQLite database.
 You can follow non-existent players, but they won't show up before they have statistics in either league with their name.

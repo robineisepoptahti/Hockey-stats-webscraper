@@ -1,5 +1,8 @@
 .DS_Store
 /.DS_Store
 .vscode/
+.vscode
 __pycache__/
+__pycache__
 node_modules/
+node_modules

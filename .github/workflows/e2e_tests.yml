@@ -10,13 +10,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20.19.0"
-      - name: Change root directory
-        run: cd frontend
       - name: Install deps
-        run: npm ci
+        run: cd frontend && npm ci
       - name: Install Playwright
-        run: npx playwright install --with-deps
+        run: cd frontend && npx playwright install --with-deps
       - name: Build
-        run: npm run build
+        run: cd frontend && npm run build
       - name: Run tests
-        run: npm run test
+        run: cd frontend && npm run test

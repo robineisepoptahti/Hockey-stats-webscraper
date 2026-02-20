@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 from db.db_conn import DB
-from utilities import ask_name
 from db.queries import PlayerQueries
 
 #Model

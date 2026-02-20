@@ -15,7 +15,7 @@ const PlayersToolbar = () => {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" color="inherit" component="div">
-          Graphs
+          Stats
         </Typography>
       </Toolbar>
     </AppBar>

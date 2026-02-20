@@ -15,23 +15,6 @@ const InputForm = ({
       setPlayers(res);
     });
   };
-  const removeOnClickListener = () => {
-    playerService.removePlayer(text).then(
-      (
-        res:
-          | {
-              players: Player[];
-              status: number;
-            }
-          | undefined,
-      ) => {
-        if (res && res.status === 204) {
-          //Filtering manualy, since 204 response doesnt bring a body
-          setPlayers(res.players);
-        }
-      },
-    );
-  };
 
   return (
     <Box sx={{ padding: 2 }}>
@@ -42,14 +25,6 @@ const InputForm = ({
         onChange={(e) => setText(e.target.value)}
         fullWidth
       />
-      <Button
-        onClick={removeOnClickListener}
-        variant="contained"
-        color="primary"
-        sx={{ marginTop: 2, marginRight: 2 }}
-      >
-        Remove player
-      </Button>
       <Button
         onClick={addOnClickListener}
         variant="contained"

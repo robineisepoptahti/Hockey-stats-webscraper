@@ -13,8 +13,15 @@ function App() {
   //Fetch when needed
   useEffect(() => {
     const fetchPlayers = async () => {
-      const players: Player[] = await playerService.getAll();
-      setPlayers(players);
+      //Fetching data from backend
+      const fetchedPlayers: Player[] = await playerService.getAll();
+      setPlayers(fetchedPlayers);
+      //Caching
+      try {
+        localStorage.setItem("playersList", JSON.stringify(fetchedPlayers));
+      } catch (e) {
+        console.error("Could not save data:", e);
+      }
     };
     fetchPlayers();
   }, []);
@@ -28,7 +35,7 @@ function App() {
         <InputForm setPlayers={setPlayers} />
       </div>
       <div>
-        <PlayersTable players={players} />
+        <PlayersTable players={players} setPlayers={setPlayers} />
       </div>
     </>
   );

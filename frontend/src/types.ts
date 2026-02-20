@@ -16,8 +16,18 @@ export type Player = {
 
 export type PlayersTableProps = {
   players: Player[];
+  setPlayers: React.Dispatch<React.SetStateAction<Player[]>>;
 };
 
 export type InputFormProps = {
   setPlayers: React.Dispatch<React.SetStateAction<Player[]>>;
+};
+
+export type TableMeta = {
+  setPlayers: React.Dispatch<React.SetStateAction<Player[]>>;
+};
+
+export type RemoveResponse = {
+  players: Player[];
+  status: number;
 };

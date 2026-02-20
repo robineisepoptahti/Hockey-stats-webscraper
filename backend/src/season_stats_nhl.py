@@ -30,7 +30,7 @@ def nhl_season_stats():
                 peliaika = ((str(round(entry.get("timeOnIcePerGame")) or "Unknown")[:-2]) + ":" + str(round(entry.get("timeOnIcePerGame")) or "Unknown")[-2:])
                 player_stats = {
                     "league": league,
-                    "name": fullname,
+                    "name": player.name,
                     "goals": int(entry.get("goals") or 0),
                     "assists": int(entry.get("assists") or 0),
                     "points": int(entry.get("points") or 0),

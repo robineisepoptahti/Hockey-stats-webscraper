@@ -1,19 +1,23 @@
-# Requires Python >=3.11
 beautifulsoup4==4.12.3
+blinker==1.9.0
 bs4==0.0.2
 certifi==2024.7.4
 charset-normalizer==3.3.2
+click==8.3.1
 Flask==3.0.3
+flask-cors==6.0.2
 idna==3.8
 iniconfig==2.3.0
+itsdangerous==2.2.0
+Jinja2==3.1.6
+MarkupSafe==3.0.3
 packaging==26.0
 pluggy==1.6.0
 Pygments==2.19.2
 pytest==9.0.2
+python-dotenv==1.2.1
 requests==2.32.3
 soupsieve==2.6
 typing_extensions==4.9.0
 urllib3==2.2.2
-flask_cors==6.0.2
-python-dotenv==1.2.1
-gunicorn==22.0.0
+Werkzeug==3.1.5
